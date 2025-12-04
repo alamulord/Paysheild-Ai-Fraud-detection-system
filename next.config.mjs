@@ -1,11 +1,30 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  reactStrictMode: true,
   images: {
-    unoptimized: true,
+    domains: ['your-supabase-url.supabase.co'], // Add your Supabase URL here
+  },
+  // Add this if you're using static exports
+  output: 'standalone', // or 'export' if you're doing static exports
+  // Add this to handle client-side routing
+  async rewrites() {
+    return [
+      {
+        source: '/:path*',
+        destination: '/:path*',
+      },
+    ]
+  },
+  // Add this to handle 404s in production
+  async redirects() {
+    return [
+      {
+        source: '/_error',
+        destination: '/404',
+        permanent: false,
+      },
+    ]
   },
 }
 
-export default nextConfig
+module.exports = nextConfig
