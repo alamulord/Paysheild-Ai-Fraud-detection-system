@@ -1,13 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 
-export default function ConfirmEmailPage() {
+function ConfirmEmailContent() {
   const [message, setMessage] = useState("Verifying your email...")
   const [isVerified, setIsVerified] = useState(false)
   const searchParams = useSearchParams()
@@ -76,5 +76,17 @@ export default function ConfirmEmailPage() {
         </Card>
       </div>
     </div>
+  )
+}
+
+export default function ConfirmEmailPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-gray-100"></div>
+      </div>
+    }>
+      <ConfirmEmailContent />
+    </Suspense>
   )
 }
