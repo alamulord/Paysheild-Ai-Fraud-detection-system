@@ -788,7 +788,11 @@ import { Plus, Trash2, Save, CheckCircle, XCircle, Bell } from "lucide-react"
 import { toast } from "@/components/ui/use-toast"
 import { getPreferences, savePreferences, DEFAULT_PREFERENCES } from "@/lib/storage"
 
-export default function SettingsPage() {
+interface SettingsPageProps {
+  merchantId: string;
+}
+
+export default function SettingsPage({ merchantId }: SettingsPageProps) {
   const [isSaving, setIsSaving] = useState(false)
   const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle")
   const [formData, setFormData] = useState(DEFAULT_PREFERENCES)
@@ -796,9 +800,9 @@ export default function SettingsPage() {
 
   // Load preferences from localStorage on component mount
   useEffect(() => {
-    const prefs = getPreferences() || DEFAULT_PREFERENCES
-    setFormData(prefs)
-  }, [])
+    const prefs = getPreferences() || DEFAULT_PREFERENCES;
+    setFormData(prefs);
+  }, []);
 
   const handleSave = () => {
     setIsSaving(true)

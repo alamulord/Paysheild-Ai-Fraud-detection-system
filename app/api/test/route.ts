@@ -28,7 +28,8 @@ export async function GET() {
     let stripeTest;
     try {
       stripeTest = await stripe.balance.retrieve();
-    } catch (stripeError) {
+    } catch (error) {
+      const stripeError = error as Error;
       console.error('Stripe error:', stripeError);
       throw new Error(`Stripe connection failed: ${stripeError.message}`);
     }
@@ -59,12 +60,15 @@ export async function GET() {
     
   } catch (error) {
     console.error('Test endpoint error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    const errorStack = error instanceof Error ? error.stack : undefined;
+    
     return NextResponse.json(
       { 
         success: false, 
         message: 'Test failed',
-        error: error.message,
-        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        error: errorMessage,
+        stack: process.env.NODE_ENV === 'development' ? errorStack : undefined
       },
       { status: 500 }
     );
