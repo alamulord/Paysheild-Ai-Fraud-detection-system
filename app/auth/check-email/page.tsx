@@ -1,11 +1,12 @@
 "use client"
 
 import { useSearchParams, useRouter } from "next/navigation"
+import { Suspense } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 
-export default function CheckEmailPage() {
+function CheckEmailPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const email = searchParams.get('email') || 'your email'
@@ -45,5 +46,13 @@ export default function CheckEmailPage() {
         </Card>
       </div>
     </div>
+  )
+}
+
+export default function CheckEmailContent() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CheckEmailPage />
+    </Suspense>
   )
 }
