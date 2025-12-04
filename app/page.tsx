@@ -53,9 +53,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center">
-              <span className="text-sm font-bold text-slate-900">FD</span>
+              <span className="text-sm font-bold text-slate-900">PA</span>
             </div>
-            <span className="text-xl font-bold">FraudDetect</span>
+            <span className="text-xl font-bold">PaySheild <span className="text-emerald-500">Ai</span></span>
           </div>
           <div className="flex gap-4">
             <a href="/auth/login" className="px-4 py-2 text-slate-300 hover:text-white transition">
